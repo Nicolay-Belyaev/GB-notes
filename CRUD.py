@@ -1,9 +1,5 @@
 import datetime
 import sqlite3
-from typing import List, Any
-
-
-#TODO: make it work with try-except + with
 
 
 def create(title: str, content: str):
@@ -19,7 +15,7 @@ def create(title: str, content: str):
     sqlite_connection.close()
 
 
-def read(search_key: str, search_value):
+def read(search_key: str, search_value: str):
     sqlite_connection = sqlite3.connect('database.sqlite')
     cursor = sqlite_connection.cursor()
 

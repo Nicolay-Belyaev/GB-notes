@@ -1,9 +1,13 @@
 import CRUD
 import UI
 
+# инициализатор БД с проверкой существования БД
+# вынести ui-функции в отдельный файл
+# try-execpt и with для CRUD, вынести коннект к БД в отдельную функцию
 
 current_command = ""
 while True:
+    print("Введите команду или нажмите Enter для получения справки: ", end="")
     current_command = input()
     match current_command:
         case "exit":
@@ -43,5 +47,24 @@ while True:
             search_value = input()
             CRUD.read(search_key, search_value)
         case "change":
-            print()
-
+            print("Введите ID заметки для изменения: ", end="")
+            ID = input()
+            print("""Для изменения доступны следующие ключи:\n
+                     1 - заголовок,
+                     2 - текст""")
+            key = 0
+            while key not in [1, 2]:
+                print("Введите ключ (1-2) для изменения: ")
+                key = input()
+            translation_dict = {
+                1: "title",
+                2: "content",
+            }
+            column_name = translation_dict.get(key)
+            print("Введите новое значение выбранного ключа: ")
+            new_value = input()
+            CRUD.update(column_name, new_value, ID)
+        case "del":
+            print("Введите ID заметки для удаления: ", end="")
+            ID = input()
+            CRUD.delete(ID)
