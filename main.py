@@ -1,11 +1,11 @@
-import CRUD
+import DB
 import UI
 
+# TODO: команды showall, deleteall
 # TODO: инициализатор БД с проверкой существования БД
-# TODO: try-execpt и with для CRUD, вынести коннект к БД в отдельную функцию
-# TODO: пересчитывать поле ID при удалении записей
+# TODO: try-except и with для CRUD, вынести коннект к БД в отдельную функцию
 # TODO: допилить поиск через LIKE (что бы не подставлять % на вводе)
-# TODO: уведомления об результате операции.
+# TODO: уведомления о результате операции (update, del)
 
 
 while True:
@@ -17,10 +17,10 @@ while True:
         case "":
             UI.help()
         case "add":
-            CRUD.create(UI.add)
+            UI.add_result_view(DB.create(UI.add))
         case "find":
-            print(CRUD.read(UI.find))  # TODO: сделать красивый вывод
+            UI.find_result_view(DB.read(UI.find))
         case "change":
-            CRUD.update(UI.change)
+            DB.update(UI.change)
         case "del":
-            CRUD.delete(UI.delete)
+            DB.delete(UI.delete)

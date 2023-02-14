@@ -1,9 +1,11 @@
+from typing import Callable
 def help():
     print("""Доступные команды:
                 add - добавить заметку,
-               find - поиск по произвольную параметру,
+               find - поиск по произвольному параметру,
              change - изменить заметку,
-                del - удалить заметку""")
+                del - удалить заметку,
+               exit - выйти из программы.""")
 
 
 def add():
@@ -12,6 +14,15 @@ def add():
     print("Введите текст: ", end="")
     content = input()
     return title, content
+
+
+# TODO: Сделать уведомлениям вывод ID созданной заметки.
+def add_result_view(success: bool):
+    if not success:
+        print("""Не удалось создать заметку.
+                 Возможно, файла базы данных удален, перемещен, переименован или заблокирован.""")
+    else:
+        print("Заметка создана.")
 
 
 def find():
@@ -29,8 +40,8 @@ def find():
         "1": "ID",
         "2": "title",
         "3": "content",
-        "4": "creationdate",
-        "5": "creationtime"
+        "4": "creation_date",
+        "5": "creation_time"
     }
     search_key = translation_dict.get(key)
 
@@ -38,6 +49,14 @@ def find():
     search_value = input()
 
     return search_key, search_value
+
+
+def find_result_view(results: list):
+    if len(results) == 0:
+        print("В базе данных не найдено записей соответствующих заданным параметрам поиска.")
+    for note in results:
+        print(f"""ID: {note[0]},\nЗаголовок: {note[1]},\nТекст: {note[2]},\nДата и время создания: {note[3]}, {note[4]}. 
+                """)
 
 
 def change():
